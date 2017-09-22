@@ -3,7 +3,7 @@ import math
 import random
 
 high = 100
-low = 0
+low = 1
 
 limit = 0
 
@@ -19,13 +19,9 @@ def splash_screen():
 
 def choose_bound():
     global high
-    global low
     print("What will the highest number be?")
     high = int(input())
-    print("What will the lowest number be?")
-    low = int(input())
-
-   
+  
 def get_limit():
     global limit
     limit = math.log(high,2);
