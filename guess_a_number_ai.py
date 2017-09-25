@@ -65,10 +65,12 @@ def play():
 
         if result == -1:
             # adjust current high
-            pass
+            current_high = guess - 1
+ 
         elif result == 1:
             # adjust current low
-            pass
+            current_high = guess + 1
+
 
     show_result()
 
