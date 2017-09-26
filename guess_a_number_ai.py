@@ -14,28 +14,28 @@ def show_start_screen():
 def show_credits():
     print("This awesome game was created by Coop Dogg.")
     
-def get_guess(current_low, current_high):
-    """
-    Returns a truncated average of the current low and high
-    """
-    pass
+def get_guess(current_high, current_low):
+    x = (current_high - current_low) // 2
+    return x
 
 def pick_number():
-    """
-    Ask the player to pick a number and waits until the player
-    confirms they have a number by pressing enter.
-    """
-    pass
-
+    print("Think of a number between " + str(low) + " and " + str(high) + ".")
+    print("Hit the enter key once you think of your number:")
+    input()
+    
 def check_guess(guess):
-    """
-    Ask the player if the computer's number was too high, too low,
-    or just right.
-    Returns -1 if the guess was too low
-             0 if the guess was correct
-             1 if the guess was too high
-    """
-    pass
+    print("Is " + str(guess) + " your number?")
+    print()
+    print('Type "2" if my guess is too low')
+    print('Type "1" if my guess is too high')
+    print('Type "0" if my guess is correct')
+    
+    while True:
+        ans = int(input())
+        if ans == 2 or ans == 1 or ans == 0:
+            return ans
+        else:
+            print("Error: please respond with 1,-1, or 0")
 
 def show_result():
     pass
@@ -59,18 +59,21 @@ def play():
     pick_number()
     
     while result != 0:
-        guess = get_guess(current_low, current_high)
+        guess = get_guess(current_high, current_low)
 
         result = check_guess(guess)
 
-        if result == -1:
-            # adjust current high
-            current_high = guess - 1
+        if result == 2:
+            # adjust current low
+            current_low = guess + 1
+            print("current high is " + (str(current_high)))
+            print("current low is " + (str(current_low)))
  
         elif result == 1:
-            # adjust current low
-            current_high = guess + 1
-
+            # adjust current high
+            current_high = guess - 1
+            print("current high is " + (str(current_high)))
+            print("current low is " + (str(current_low)))    
 
     show_result()
 
