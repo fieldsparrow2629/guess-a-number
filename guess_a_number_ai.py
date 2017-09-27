@@ -1,8 +1,15 @@
+#Guess a number ai
+#by Erik B.
+
+
+
+
 import random
 
 # config
 low = 1
 high = 1000
+num_guess = 0
 
 
 # helper functions
@@ -12,11 +19,12 @@ def show_start_screen():
     print("**************************")
 
 def show_credits():
-    print("This awesome game was created by Coop Dogg.")
-    
+    print("Thank you for playing.")
+    print("This awesome game was created by Erik Blom.")
+
 def get_guess(current_high, current_low):
-    x = (current_high - current_low) // 2
-    return x
+    return (current_high - current_low)// 2 + current_low
+
 
 def pick_number():
     print("Think of a number between " + str(low) + " and " + str(high) + ".")
@@ -26,19 +34,24 @@ def pick_number():
 def check_guess(guess):
     print("Is " + str(guess) + " your number?")
     print()
-    print('Type "2" if my guess is too low')
-    print('Type "1" if my guess is too high')
-    print('Type "0" if my guess is correct')
+    print('Type "low" if my guess is too low')
+    print('Type "high" if my guess is too high')
+    print('Type "yes" if my guess is correct')
+    print()
     
     while True:
-        ans = int(input())
-        if ans == 2 or ans == 1 or ans == 0:
+        ans = input()
+        if ans == 'low' or ans == 'high' or ans == 'yes':
             return ans
         else:
-            print("Error: please respond with 1,-1, or 0")
+            print("Error: please respond with 'yes','high', or 'low'")
+    print()
 
 def show_result():
-    pass
+    if broke == True:
+        print("Hmm, it looks like you messed up somewhere.")
+    else:
+        print("I guessed your number.")
 
 def play_again():
     while True:
@@ -55,25 +68,33 @@ def play():
     current_low = low
     current_high = high
     result = -1
+    broke = False
     
     pick_number()
     
-    while result != 0:
+    while result != 'yes' and broke ==False:
         guess = get_guess(current_high, current_low)
 
         result = check_guess(guess)
-
-        if result == 2:
+        
+        #break the loop if the the player messes up
+        if(current_high - current_low)//2 == 1 and (result == 'low' or result == 'high'):
+            broke = True
+        if result == 'low':
             # adjust current low
             current_low = guess + 1
+            #to help debug
             print("current high is " + (str(current_high)))
             print("current low is " + (str(current_low)))
+            print()
  
-        elif result == 1:
+        elif result == 'high':
             # adjust current high
             current_high = guess - 1
+            #to help debug
             print("current high is " + (str(current_high)))
-            print("current low is " + (str(current_low)))    
+            print("current low is " + (str(current_low)))
+            print()
 
     show_result()
 
