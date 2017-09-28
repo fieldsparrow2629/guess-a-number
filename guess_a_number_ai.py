@@ -14,19 +14,28 @@ num_guess = 0
 
 # helper functions
 def show_start_screen():
-    print("**************************")
-    print("*  Guess a Number A.I.!  *")
-    print("**************************")
+    print("""
+             ╔═╗┬ ┬┌─┐┌─┐┌─┐  ┌─┐  ┌┐┌┬ ┬┌┬┐┌┐ ┌─┐┬─┐  ╔═╗ ╦ 
+             ║ ╦│ │├┤ └─┐└─┐  ├─┤  ││││ ││││├┴┐├┤ ├┬┘  ╠═╣ ║ 
+             ╚═╝└─┘└─┘└─┘└─┘  ┴ ┴  ┘└┘└─┘┴ ┴└─┘└─┘┴└─  ╩ ╩o╩o
+        """)
 
 def show_credits():
-    print("Thank you for playing.")
-    print("This awesome game was created by Erik Blom.")
+    print(""""
+    ╔╦╗╦ ╦╔═╗╔╗╔╦╔═╔═╗  ╔═╗╔═╗╦═╗  ╔═╗╦  ╔═╗╦ ╦╦╔╗╔╔═╗
+     ║ ╠═╣╠═╣║║║╠╩╗╚═╗  ╠╣ ║ ║╠╦╝  ╠═╝║  ╠═╣╚╦╝║║║║║ ╦
+     ╩ ╩ ╩╩ ╩╝╚╝╩ ╩╚═╝  ╚  ╚═╝╩╚═  ╩  ╩═╝╩ ╩ ╩ ╩╝╚╝╚═╝
+     """)
+    print("This awesome game was created by Erik (9-28-17).")
 
 def get_guess(current_high, current_low):
-    return (current_high - current_low)// 2 + current_low
+    return (current_high + current_low)// 2 
 
 
+def pick_bounds():
+    print("What do you want the highest number to be?")
 def pick_number():
+    print()
     print("Think of a number between " + str(low) + " and " + str(high) + ".")
     print("Hit the enter key once you think of your number:")
     input()
@@ -41,21 +50,25 @@ def check_guess(guess):
     
     while True:
         ans = input()
-        if ans == 'low' or ans == 'high' or ans == 'yes':
-            return ans
+        ans = ans.lower()
+        
+        if ans == 'low' or ans == 'l' or ans == 'lower':
+            return -1
+        elif ans == 'high' or ans == 'h' or ans == 'higher':
+            return 1
+        elif ans == 'yes' or ans == 'y':
+            return 0
         else:
             print("Error: please respond with 'yes','high', or 'low'")
     print()
 
 def show_result():
-    if broke == True:
-        print("Hmm, it looks like you messed up somewhere.")
-    else:
-        print("I guessed your number.")
+    pass
 
 def play_again():
     while True:
         decision = input("Would you like to play again? (y/n) ")
+        decision = decision.lower()
 
         if decision == 'y' or decision == 'yes':
             return True
@@ -68,32 +81,22 @@ def play():
     current_low = low
     current_high = high
     result = -1
-    broke = False
     
     pick_number()
     
-    while result != 'yes' and broke ==False:
+    while result != 0:
         guess = get_guess(current_high, current_low)
 
         result = check_guess(guess)
         
-        #break the loop if the the player messes up
-        if(current_high - current_low)//2 == 1 and (result == 'low' or result == 'high'):
-            broke = True
-        if result == 'low':
+        if result == -1:
             # adjust current low
             current_low = guess + 1
-            #to help debug
-            print("current high is " + (str(current_high)))
-            print("current low is " + (str(current_low)))
             print()
  
-        elif result == 'high':
+        elif result == 1:
             # adjust current high
             current_high = guess - 1
-            #to help debug
-            print("current high is " + (str(current_high)))
-            print("current low is " + (str(current_low)))
             print()
 
     show_result()
