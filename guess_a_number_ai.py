@@ -1,11 +1,11 @@
-<<<<<<< HEAD
-#Guess a number ai
+# Guess a number ai
 #by Erik B.
 
 
 
 
 import random
+import math
 
 # config
 low = 1
@@ -64,6 +64,12 @@ def pick_low():
             
     print()
 
+def calc_limit(high,low):
+   limit = math.log((high - low),2)
+   limit = math.ceil(limit)
+   return limit
+    
+
 def ask_name():
     global name
     print()
@@ -75,20 +81,22 @@ def get_guess(current_high, current_low):
     return (current_high + current_low)// 2 
    
 def pick_number():
+    limit  = calc_limit(high,low)
     print()
-    print(name + ", think of a number between " + str(low) + " and " + str(high) + ".")
+    print(name + ", think of a number between " + str(low) + " and " + str(high)+ ".")
+    print("Im going to guess your number in " + str(limit) + " tries, or less.")
     print("Then hit the enter key once you think of your number:")
     input()
     
-def check_guess(guess):
-    global tries
+def check_guess(guess):     
+    print()
     print(name + ", is " + str(guess) + " your number?")
     print()
     print('Type "low" if my guess is too low')
     print('Type "high" if my guess is too high')
     print('Type "yes" if my guess is correct')
     print()
-    
+
     while True:
         ans = input()
         ans = ans.lower()
@@ -145,96 +153,13 @@ def play():
             current_low = guess + 1
             print()
             tries += 1
+
         elif result == 1:
             # adjust current high
             current_high = guess - 1
             print()
             tries += 1
 
-    show_result()
-
-# Game starts running here
-show_start_screen()
-
-playing = True
-
-while playing:
-    play()
-    playing = play_again()
-
-show_credits()
-=======
-import random
-
-# config
-low = 1
-high = 1000
-
-
-# helper functions
-def show_start_screen():
-    print("**************************")
-    print("*  Guess a Number A.I.!  *")
-    print("**************************")
-
-def show_credits():
-    print("This awesome game was created by Coop Dogg.")
-    
-def get_guess(current_low, current_high):
-    """
-    Returns a truncated average of the current low and high
-    """
-    pass
-
-def pick_number():
-    """
-    Ask the player to pick a number and waits until the player
-    confirms they have a number by pressing enter.
-    """
-    pass
-
-def check_guess(guess):
-    """
-    Ask the player if the computer's number was too high, too low,
-    or just right.
-    Returns -1 if the guess was too low
-             0 if the guess was correct
-             1 if the guess was too high
-    """
-    pass
-
-def show_result():
-    pass
-
-def play_again():
-    while True:
-        decision = input("Would you like to play again? (y/n) ")
-
-        if decision == 'y' or decision == 'yes':
-            return True
-        elif decision == 'n' or decision == 'no':
-            return False
-        else:
-            print("I don't understand. Please enter 'y' or 'n'.")
-
-def play():
-    current_low = low
-    current_high = high
-    result = -1
-    
-    pick_number()
-    
-    while result != 0:
-        guess = get_guess(current_low, current_high)
-
-        result = check_guess(guess)
-
-        if result == -1:
-            # adjust current high
-            pass
-        elif result == 1:
-            # adjust current low
-            pass
 
     show_result()
 
@@ -248,4 +173,3 @@ while playing:
     playing = play_again()
 
 show_credits()
->>>>>>> 07ebfe6968dc822d97a066aed21c65e0d448526d
