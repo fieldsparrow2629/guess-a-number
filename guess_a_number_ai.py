@@ -81,15 +81,20 @@ def get_guess(current_high, current_low):
     return (current_high + current_low)// 2 
    
 def pick_number():
-    limit  = calc_limit(high,low)
+    limit = calc_limit(high,low)
     print()
     print(name + ", think of a number between " + str(low) + " and " + str(high)+ ".")
     print("Im going to guess your number in " + str(limit) + " tries, or less.")
     print("Then hit the enter key once you think of your number:")
     input()
+
+def check_fault():
+    pass
     
-def check_guess(guess):     
+def check_guess(guess):
+    limit = calc_limit(high,low)
     print()
+    print("Guess " + str(tries) + " of " + str(limit) +   ".")
     print(name + ", is " + str(guess) + " your number?")
     print()
     print('Type "low" if my guess is too low')
@@ -137,10 +142,12 @@ def play():
     pick_high()
     pick_low()
     current_low = low
+    
     current_high = high
     result = -1
     
     pick_number()
+    
     
     while result != 0:
         global tries
@@ -159,6 +166,7 @@ def play():
             current_high = guess - 1
             print()
             tries += 1
+            
 
 
     show_result()
