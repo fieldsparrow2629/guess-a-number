@@ -72,8 +72,8 @@ def ask_name():
     name = input()
     print()
 
-def dumb_guess(current_low,current_high):
-    return(random.randrange(current_low,current_high))
+def dumb_guess():
+    pass
 
 def average_guess():
     pass
@@ -91,7 +91,7 @@ def pick_number(limit,low,high):
 def check_fault():
     pass
     
-def check_guess(limit,guess):
+def check_guess(limit,guess,tries):
     print()
     print("Guess " + str(tries) + " of " + str(limit) +   ".")
     print(name + ", is " + str(guess) + " your number?")
@@ -115,7 +115,7 @@ def check_guess(limit,guess):
             print(name + ", please respond with 'yes','high', or 'low'")
     print()
 
-def show_result():
+def show_result(tries):
     print()
 
     if tries == 1:
@@ -154,7 +154,7 @@ def play():
     
     pick_number(limit,low,high)
     
-    global tries
+    
     tries = 1
 
     error = False
@@ -163,12 +163,9 @@ def play():
         
         limit = calc_limit(high,low)
 
-        if intelligence == 2:
-            guess = perfect_guess(current_high, current_low)  
-        else:
-            guess = dumb_guess(current_high, current_low)
+        guess = perfect_guess(current_high, current_low) 
             
-        result = check_guess(limit,guess)
+        result = check_guess(limit,guess,tries)
         
         if tries == limit:
             if(result == -1 or result == 1):
@@ -193,7 +190,7 @@ def play():
                 
 
     if not error:
-        show_result()
+        show_result(tries)
 
 # Game starts running here
 show_start_screen()
